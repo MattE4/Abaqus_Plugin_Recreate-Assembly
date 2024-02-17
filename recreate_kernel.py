@@ -1,3 +1,4 @@
+from __future__ import print_function
 from abaqus import *
 from abaqusConstants import *
 #import regionToolset
@@ -53,7 +54,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
     
         fmassprops = m.parts[fname].getMassProperties(relativeAccuracy=MEDIUM)
         farea = fmassprops['area']
-        if farea <> None:
+        if farea != None:
             if farea > 100:
                 farea = round(farea,2)
             else:
@@ -114,7 +115,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
     try:
         mp_attributes = getAttributes(masterpart_name)
     except:
-        print '\nError: Invalid master instance. Only face and solid geometry is supported.'
+        print('\nError: Invalid master instance. Only face and solid geometry is supported.')
         return
     
     mp_num_vertices = mp_attributes[0]
@@ -126,7 +127,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
 
     # exit script if master is line geometry
     if mp_num_vertices < 3 or mp_num_faces < 1:
-        print '\nError: Invalid master instance. Only face and solid geometry is supported.'
+        print('\nError: Invalid master instance. Only face and solid geometry is supported.')
         return
     
     mp_size_edge_1 = getEdgesize(masterpart_name,0)
@@ -143,7 +144,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
     ### find equal parts
     
     for x in m.parts.keys():
-        if x <> masterpart_name:
+        if x != masterpart_name:
     
             same=[] #dummy list to monitor equal criteria
             
@@ -155,7 +156,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
             # num vertices
             if mp_num_vertices == attributes[0]:
                 same.append(1)
-            if len(same)<>1:
+            if len(same) != 1:
                 continue
     
             #volume
@@ -169,7 +170,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
                         same.append(2)
                 except:
                     pass
-            if len(same)<>2:
+            if len(same) != 2:
                 continue
                 
             # area
@@ -183,7 +184,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
                         same.append(3)
                 except:
                     pass            
-            if len(same)<>3:
+            if len(same) != 3:
                 continue
     
             # num edges
@@ -223,7 +224,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
             #print '\n\n', x, same
             #print same
 
-    print '\nFound '+str(len(equals))+' other identical part(s)'
+    print('\nFound '+str(len(equals))+' other identical part(s)')
 
 
     ############################################################################
@@ -258,9 +259,9 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
                 instancelist.append(x)
     
         
-        print 'Replacing these instances:'    
-        print instancelist
-        print '\n\n'
+        print('Replacing these instances:')
+        print(instancelist)
+        print('\n\n')
     
     
         ########################################################################################
@@ -295,7 +296,7 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
                 i = i+1
                 newinst_name = masterpart_name+'-'+str(i)
                 for name in existingnames:
-                    if name.find(newinst_name)<>-1:
+                    if name.find(newinst_name) != -1:
                         x = 0
             
         
@@ -347,8 +348,8 @@ def recreateAssembly(kw_instance=None, kw_parts=None):
                 if a.instances[i].partName in unused_parts:
                     unused_parts.remove(a.instances[i].partName)
             
-            print '\nDeleting these '+str(len(unused_parts))+' part(s):'
-            print unused_parts
+            print('\nDeleting these '+str(len(unused_parts))+' part(s):')
+            print(unused_parts)
             
             for i in unused_parts:
                 del mdb.models[modelName].parts[i]

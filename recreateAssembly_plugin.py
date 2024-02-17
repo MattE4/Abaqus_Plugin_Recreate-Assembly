@@ -66,9 +66,9 @@ toolset.registerGuiMenuButton(
     kernelInitString='import recreate_kernel',
     applicableModules=['Assembly'],
     version='1.1',
-    author='Matthias Ernst',
+    author='Matthias Ernst, Dassault Systemes Germany',
     description='Select one instance and it is checked if other equal parts with instances exist. If yes, those instances are replaced. '\
                 'Only face and solid geometry is supported.'\
-                '\n\nUsage on your own risk.',
+                '\n\nThis is not an official Dassault Systemes product.',
     helpUrl='N/A'
 )
